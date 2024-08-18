@@ -1,7 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"docker/route"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 func main() {
-	fmt.Println("Hello world")
+	server := route.Route{
+		App: fiber.New(),
+	}
+	server.RouteInit()
+
+	server.App.Listen(":3000")
 }
