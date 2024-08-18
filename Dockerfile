@@ -20,7 +20,7 @@ FROM scratch
 COPY --from=builder /docker /docker
 
 # Thiết lập cổng
-EXPOSE 8080
+EXPOSE 3000
 
 # Thiết lập lệnh khởi động
 CMD ["/docker"]
