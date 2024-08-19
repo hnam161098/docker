@@ -9,9 +9,6 @@ RUN apt-get update && \
     ln -fs /usr/share/zoneinfo/Asia/Ho_Chi_Minh /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata
 
-# Thiết lập biến môi trường TZ
-ENV TZ=Asia/Ho_Chi_Minh
-
 # Chỉ copy những file cần thiết trước, để tận dụng cache của Docker
 COPY go.mod go.sum ./
 RUN go mod download
