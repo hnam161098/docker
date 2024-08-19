@@ -23,10 +23,17 @@ COPY . ./
 RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /docker
 
 # Bước 2: Minimal runtime stage
-FROM scratch
+FROM alpine:latest
+
+# Cài tzdata cho Alpine
+RUN apk add --no-cache tzdata
 
 # Copy binary từ build stage sang
 COPY --from=builder /docker /docker
+
+# Thiết lập múi giờ
+ENV TZ=Asia/Ho_Chi_Minh
+RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
 
 # Thiết lập cổng
 EXPOSE 8080
