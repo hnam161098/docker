@@ -3,6 +3,15 @@ FROM golang:1.20 AS builder
 
 WORKDIR /app
 
+# Cài đặt tzdata và thiết lập múi giờ
+RUN apt-get update && \
+    apt-get install -y tzdata && \
+    ln -fs /usr/share/zoneinfo/Asia/Ho_Chi_Minh /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
+
+# Thiết lập biến môi trường TZ
+ENV TZ=Asia/Ho_Chi_Minh
+
 # Chỉ copy những file cần thiết trước, để tận dụng cache của Docker
 COPY go.mod go.sum ./
 RUN go mod download
