@@ -16,7 +16,10 @@ func (r *Route) RouteInit() {
 
 func (r *Route) registerAPI() {
 	v := r.App.Group("/v1.0")
-	group := v.Group("/api")
-	api := controller.NewControllerHandler()
-	group.Get("/say_hello", api.SayHello)
+
+	// customer
+	customerGroup := v.Group("/customer")
+	handler := controller.NewCustomerHandler()
+	customerGroup.Post("/create", handler.CreateCustomerAPI)
+	customerGroup.Get("/list", handler.FindCustomerAPI)
 }
